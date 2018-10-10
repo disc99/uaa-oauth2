@@ -30,10 +30,12 @@ ext {
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-jdbc')
 //	implementation('org.springframework.cloud:spring-cloud-starter-oauth2')
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.5.RELEASE'
+	runtimeOnly('com.h2database:h2')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
