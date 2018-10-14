@@ -1,6 +1,5 @@
 package com.example.uaaoauth2;
 
-import com.example.uaaoauth2.OAuth2User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

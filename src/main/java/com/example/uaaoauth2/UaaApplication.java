@@ -36,7 +36,6 @@ public class UaaApplication {
 
 //		@Autowired
 //		DataSource dataSource;
-//		@Autowired
 		UserDetailsService userDetailsService;
 
 		LoginConfig(UserDetailsService userDetailsService) {
@@ -44,7 +43,7 @@ public class UaaApplication {
 			this.userDetailsService = userDetailsService;
 		}
 
-		//		@Bean
+//		@Bean
 //		PersistentTokenRepository persistentTokenRepository() {
 //			JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
 //			tokenRepository.setDataSource(dataSource);
