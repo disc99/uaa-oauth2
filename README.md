@@ -3,10 +3,10 @@ Minimal User Account and Authentication.
 
 ## Support
 
-### OAuth2 grant type
+### Grant type
 - Authorization code grant
 - Implicit grant
-- ...
+- Resource owner password credentials grant
 
 ## OAuth2 Endpoints
 - `/uaa/oauth/token`
@@ -17,12 +17,17 @@ Minimal User Account and Authentication.
 
 ### Token Store
 - In-memory
+- DB(TODO)
 
 ### Token format
 - JWT(TODO)
 
 ### User account store
-- RDBMS(H2)
+- DB
+
+### Client
+- Single client
+- Multiple client(TODO)
 
 ### Does not support
 - User account registration
