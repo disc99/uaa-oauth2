@@ -9,6 +9,7 @@ public class OAuth2User extends User {
 
     public OAuth2User(String name, String password, String email) {
         super(name, password, emptyList());
+        this.email = email;
     }
 
     public String getEmail() {

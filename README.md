@@ -3,7 +3,7 @@ Minimal User Account and Authentication.
 
 ## Support
 
-### Grant type
+### OAuth2 grant type
 - Authorization code grant
 - Implicit grant
 - ...

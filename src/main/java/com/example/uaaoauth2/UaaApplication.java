@@ -15,9 +15,10 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@EnableAuthorizationServer
 public class UaaApplication {
 
 	public static void main(String[] args) {
@@ -30,15 +31,23 @@ public class UaaApplication {
 	}
 
 	@Configuration
+	static class WebMvcConfig implements WebMvcConfigurer {
+		@Override
+		public void addViewControllers(ViewControllerRegistry registry) {
+			registry.addViewController("/login").setViewName("/login");
+		}
+	}
+
+	@Configuration
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
 	@Order(-20)
-	static class LoginConfig extends WebSecurityConfigurerAdapter {
+	static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//		@Autowired
+		//		@Autowired
 //		DataSource dataSource;
 		UserDetailsService userDetailsService;
 
-		LoginConfig(UserDetailsService userDetailsService) {
+		WebSecurityConfig(UserDetailsService userDetailsService) {
 			super();
 			this.userDetailsService = userDetailsService;
 		}
@@ -67,6 +76,11 @@ public class UaaApplication {
 		}
 	}
 
+	// If customizing the feature, extend AuthorizationServerConfigurerAdapter.
+	@Configuration
+	@EnableAuthorizationServer
+	static class AuthorizationServerConfig {}
+
 	@Configuration
 	@EnableResourceServer
 	static class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -77,5 +91,6 @@ public class UaaApplication {
 					.authorizeRequests().mvcMatchers("/userinfo")
 					.access("#oauth2.hasScope('read')");
 		}
+
 	}
 }
