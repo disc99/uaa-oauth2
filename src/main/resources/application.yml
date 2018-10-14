@@ -1,0 +1,33 @@
+#logging:
+#  level: debug
+
+server:
+  port: 9999
+  servlet:
+    # localhostなど同じホスト名を使用する場合、のちにWeb UIと連携する場合にセッションが混同してエラーが発生するため、Authorization Serverにはcontext-pathを設定
+    # 異なるホスト名を使用する場合はこの設定は不要
+    context-path: /uaa
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:mydb
+    username: sa
+
+security:
+  oauth2:
+    client:
+      # インメモリクライアントの定義。このクライアントにopenid,read,writeの3つのスコープとpassword,authorization_codeの2つのGrant Typeを許可
+      client-id: demo
+      client-secret: demo
+      scope: openid,read,write
+      authorized-grant-types: authorization_code,password
+      registered-redirect-uri: http://localhost:8080/,http://localhost:8080/login,http://localhost:8080/login/oauth2/code/home
+      # 承認画面無しで承認を実施
+      auto-approve-scopes: openid,read,write
+    authorization:
+      # Resource Serverがトークンをチェックするためエンドポイントへのアクセス認可設定
+      # デフォルトではdenyAll()になっており、アクセスできないため、設定を変更
+      check-token-access: isAuthenticated()
+      token-key-access: permitAll()
+
