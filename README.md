@@ -29,5 +29,8 @@ Minimal User Account and Authentication.
 - Single client
 - Multiple client(TODO)
 
-### Does not support
+### Client credentials
+- In-memory(property file)
+
+## Does not support
 - User account registration
