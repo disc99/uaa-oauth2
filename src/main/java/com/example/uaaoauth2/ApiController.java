@@ -1,9 +1,15 @@
 package com.example.uaaoauth2;
 
+import java.security.Principal;
 import java.util.List;
 
+import org.apache.tomcat.util.http.parser.Authorization;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +17,17 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 public class ApiController {
+    UserDetailsService userDetailsService;
+
+    public ApiController(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @GetMapping("userinfo")
-    Object userinfo(@AuthenticationPrincipal OAuth2User user) {
+    Object userinfo(@AuthenticationPrincipal OAuth2User user, Authentication authentication) {
+        if (user == null && authentication != null) {
+            user = (OAuth2User) userDetailsService.loadUserByUsername(authentication.getName());
+        }
         return new UserinfoResponse(
                 user.getUsername(),
                 new Name("gn","fn"),
